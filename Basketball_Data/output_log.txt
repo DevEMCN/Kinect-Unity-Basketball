@@ -17,13 +17,19 @@ Platform assembly: C:\Users\User\Desktop\Kinect-Unity-Basketball\Basketball_Data
 Loading C:\Users\User\Desktop\Kinect-Unity-Basketball\Basketball_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\User\Desktop\Kinect-Unity-Basketball\Basketball_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
 Loading C:\Users\User\Desktop\Kinect-Unity-Basketball\Basketball_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.058 seconds
+- Completed reload, in  0.073 seconds
 Platform assembly: C:\Users\User\Desktop\Kinect-Unity-Basketball\Basketball_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\User\Desktop\Kinect-Unity-Basketball\Basketball_Data\Managed\System.dll (this message is harmless)
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.637257 ms
+UnloadTime: 1.609342 ms
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.375239 ms
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 670.
+Total: 0.232369 ms (FindLiveObjects: 0.078414 ms CreateObjectMapping: 0.025453 ms MarkObjects: 0.123985 ms  DeleteObjects: 0.004105 ms)
+
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 2b5c -> priority: 1 
+  Thread -> id: 2b60 -> priority: 1 
