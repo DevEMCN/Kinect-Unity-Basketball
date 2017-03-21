@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect-Unity-Basketball.Plugins", "Kinect-Unity-Basketball.Plugins.csproj", "{27983F68-402B-7C44-5CDB-F7C683CCAD5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect-Unity-Basketball", "Kinect-Unity-Basketball.csproj", "{96A7D6A3-0331-25E7-DCE2-5B91795C83E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect-Unity-Basketball.Editor.Plugins", "Kinect-Unity-Basketball.Editor.Plugins.csproj", "{0D793F9B-41DA-EEEA-A7D5-D62C868DAE04}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27983F68-402B-7C44-5CDB-F7C683CCAD5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27983F68-402B-7C44-5CDB-F7C683CCAD5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27983F68-402B-7C44-5CDB-F7C683CCAD5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27983F68-402B-7C44-5CDB-F7C683CCAD5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96A7D6A3-0331-25E7-DCE2-5B91795C83E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96A7D6A3-0331-25E7-DCE2-5B91795C83E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96A7D6A3-0331-25E7-DCE2-5B91795C83E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96A7D6A3-0331-25E7-DCE2-5B91795C83E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D793F9B-41DA-EEEA-A7D5-D62C868DAE04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D793F9B-41DA-EEEA-A7D5-D62C868DAE04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D793F9B-41DA-EEEA-A7D5-D62C868DAE04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D793F9B-41DA-EEEA-A7D5-D62C868DAE04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
