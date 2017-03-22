@@ -92,57 +92,50 @@ public class Shoot : MonoBehaviour
                 foreach (var body in _bodies.Where(b => b.IsTracked))
                 {
                     IsAvailable = true;
-                    //Windows.Kinect.Joint handLeft = body.Joints[JointType.HandLeft];
-                    ////if (body.HandRightConfidence == TrackingConfidence.High && body.HandRightState == HandState.Lasso)
-                    //if (body.HandLeftState == HandState.Open)
-                    //{
-                    //    IsFire = true;
-                    //}
-                    //else
-                    //{
-                    //    //PaddlePosition = RescalingToRangesB(-1, 1, -8, 8, body.Lean.X);
-                    //    Windows.Kinect.Joint handRight = body.Joints[JointType.HandRight];
-                    //    PaddlePosition = RescalingToRangesB(-1, 1, -8, 8, handRight.Position.X);
-                    //    //handXText.text = PaddlePosition.ToString();
-                    //}
-                    /* Move Meter Arrow */
-
-                    if (arrow.transform.position.x < 4.7f && right)
-                    {
-                        arrow.transform.position += new Vector3(arrowSpeed, 0, 0);
-                    }
-                    if (arrow.transform.position.x >= 4.7f)
-                    {
-                        right = false;
-                    }
-                    if (right == false)
-                    {
-                        arrow.transform.position -= new Vector3(arrowSpeed, 0, 0);
-                    }
-                    if (arrow.transform.position.x <= -4.7f)
-                    {
-                        right = true;
-                    }
+                    
+                   
 
                     /* Shoot ball on Tap */
                     Windows.Kinect.Joint elbow = body.Joints[JointType.ElbowLeft];
                     Windows.Kinect.Joint shoulder = body.Joints[JointType.ShoulderLeft];
-                    
+
                     //if (Input.GetButton("Fire1") && !thrown && availableShots > 0)
-                    if((elbow.Position.Y > shoulder.Position.Y) && (body.HandLeftState == HandState.Open && (counter_cooldown <= 0) && availableShots > 0))
-                    {
-                        counter_cooldown = 50;
-                        thrown = true;
-                        availableShots--;
-                        availableShotsGO.GetComponent<GUIText>().text = availableShots.ToString();
+                    if (elbow.Position.Y > shoulder.Position.Y) {
+                        /* Move Meter Arrow */
 
-                        ballClone = Instantiate(ball, ballPos, transform.rotation) as GameObject;
-                        throwSpeed.y = throwSpeed.y + arrow.transform.position.x;
-                        throwSpeed.z = throwSpeed.z + arrow.transform.position.x;
+                        if (arrow.transform.position.x < 4.7f && right)
+                        {
+                            arrow.transform.position += new Vector3(arrowSpeed, 0, 0);
+                        }
+                        if (arrow.transform.position.x >= 4.7f)
+                        {
+                            right = false;
+                        }
+                        if (right == false)
+                        {
+                            arrow.transform.position -= new Vector3(arrowSpeed, 0, 0);
+                        }
+                        if (arrow.transform.position.x <= -4.7f)
+                        {
+                            right = true;
+                        }
+                        if (body.HandLeftState == HandState.Open && (counter_cooldown <= 0) && availableShots > 0)
+                        {
+                            counter_cooldown = 50;
+                            thrown = true;
+                            availableShots--;
+                            availableShotsGO.GetComponent<GUIText>().text = availableShots.ToString();
 
-                        ballClone.GetComponent<Rigidbody>().AddForce(throwSpeed, ForceMode.Impulse);
-                        //GetComponent<AudioSource>().Play();
+                            ballClone = Instantiate(ball, ballPos, transform.rotation) as GameObject;
+                            throwSpeed.y = throwSpeed.y + arrow.transform.position.x;
+                            throwSpeed.z = throwSpeed.z + arrow.transform.position.x;
+
+                            ballClone.GetComponent<Rigidbody>().AddForce(throwSpeed, ForceMode.Impulse);
+                            //GetComponent<AudioSource>().Play();
+
+                        }
                     }
+                    
 
                     /* Remove Ball when it hits the floor */
 
