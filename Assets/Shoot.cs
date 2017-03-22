@@ -125,9 +125,11 @@ public class Shoot : MonoBehaviour
                     }
 
                     /* Shoot ball on Tap */
-
+                    Windows.Kinect.Joint elbow = body.Joints[JointType.ElbowLeft];
+                    Windows.Kinect.Joint shoulder = body.Joints[JointType.ShoulderLeft];
+                    
                     //if (Input.GetButton("Fire1") && !thrown && availableShots > 0)
-                    if(body.HandLeftState == HandState.Open && (counter_cooldown <= 0))
+                    if((elbow.Position.Y > shoulder.Position.Y) && (body.HandLeftState == HandState.Open && (counter_cooldown <= 0) && availableShots > 0))
                     {
                         counter_cooldown = 50;
                         thrown = true;
