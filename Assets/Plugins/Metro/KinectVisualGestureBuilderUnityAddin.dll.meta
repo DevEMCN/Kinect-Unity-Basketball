@@ -1,6 +1,23 @@
 fileFormatVersion: 2
 guid: b51ad12a45add75438b0b8494a1b5bc0
-DefaultImporter:
+PluginImporter:
+  serializedVersion: 1
+  iconMap: {}
+  executionOrder: {}
+  isPreloaded: 0
+  isOverridable: 0
+  platformData:
+    Any:
+      enabled: 0
+      settings: {}
+    Editor:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+    WindowsStoreApps:
+      enabled: 1
+      settings:
+        CPU: x86
   userData: 
   assetBundleName: 
   assetBundleVariant: 
