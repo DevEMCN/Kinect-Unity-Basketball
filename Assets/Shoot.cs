@@ -16,7 +16,7 @@ public class Shoot : MonoBehaviour
     private int player1AvailableShots = 5;
     public GameObject player1Meter;
     public GameObject player1Arrow;
-    private float player1ArrowSpeed = 0.3f; //Difficulty
+    private float player1ArrowSpeed = 0.2f; //Difficulty
     private bool player1Right = true;
 
     // player 2 objects
@@ -29,7 +29,7 @@ public class Shoot : MonoBehaviour
     private int player2AvailableShots = 5;
     public GameObject player2Meter;
     public GameObject player2Arrow;
-    private float player2ArrowSpeed = 0.3f; //Difficulty
+    private float player2ArrowSpeed = 0.2f; //Difficulty
     private bool player2Right = true;
 
     public GameObject gameOver;
