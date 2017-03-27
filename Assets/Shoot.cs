@@ -24,6 +24,7 @@ public class Shoot : MonoBehaviour
     public GameObject player2Ball;
     private Vector3 player2ThrowSpeed = new Vector3(0, 26, 40); //This value is a sure basket
     public Vector3 player2BallPos;
+    public GameObject player2AvailableShotsGO;
     private bool player2Thrown = false;
     private GameObject player2BallClone;
     //public GameObject player2AvailableShotsGO;
@@ -68,8 +69,8 @@ public class Shoot : MonoBehaviour
     void Start()
     {
         /* Increase Gravity */
+        //Physics.gravity = new Vector3(0, -20, 0);
         Physics.gravity = new Vector3(0, -20, 0);
-
         _sensor = KinectSensor.GetDefault();
 
         if (_sensor != null)
@@ -175,30 +176,42 @@ public class Shoot : MonoBehaviour
                         /* Shoot ball on Tap */
 
                         //if (Input.GetButton("Fire1") && !player1Thrown && player1AvailableShots > 0)
-                        if(body.TrackingId == player1TrackingID && body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
+                        //if(body.TrackingId == player1TrackingID && body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
+                        if (body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
                         {
                             player1Thrown = true;
                             player1AvailableShots--;
                             player1AvailableShotsGO.GetComponent<GUIText>().text = player1AvailableShots.ToString();
 
                             player1BallClone = Instantiate(player1Ball, player1BallPos, transform.rotation) as GameObject;
-                            player1ThrowSpeed.y = player1ThrowSpeed.y + player1Arrow.transform.position.x;
-                            player1ThrowSpeed.z = player1ThrowSpeed.z + player1Arrow.transform.position.x;
+                            //player1ThrowSpeed.y = player1ThrowSpeed.y + player1Arrow.transform.position.x;// * 0.7F;
+
+                            player1ThrowSpeed.y =  player1ThrowSpeed.y + (hand.Position.Y - shoulder.Position.Y) * 2.5F;
+                            player1ThrowSpeed.z = player1ThrowSpeed.z + (hand.Position.Y - shoulder.Position.Y) * 2.0F;
+
+                            //player1ThrowSpeed.z = player1ThrowSpeed.z + player1Arrow.transform.position.x * 0.8F;
                             player1ThrowSpeed.x = -10; // players are out to the side 
+
+                            
 
                             player1BallClone.GetComponent<Rigidbody>().AddForce(player1ThrowSpeed, ForceMode.Impulse);
                             //GetComponent<AudioSource>().Play();
                         }
-                        if (body.TrackingId == player2TrackingID && body.HandLeftState == HandState.Open /*&& !player1Thrown &&*/ /*player1AvailableShots > 0*/)
+                        //if (body.TrackingId == player2TrackingID && body.HandLeftState == HandState.Open && !player2Thrown && player2AvailableShots > 0)
+                        if(body.HandRightState == HandState.Open && !player2Thrown && player2AvailableShots > 0)
                         {
                             player2Thrown = true;
                             player2AvailableShots--;
                             //player2AvailableShotsGO.GetComponent<GUIText>().text = player2AvailableShots.ToString();
 
                             player2BallClone = Instantiate(player2Ball, player2BallPos, transform.rotation) as GameObject;
-                            player2ThrowSpeed.y = Math.Abs(player2ThrowSpeed.y) + Math.Abs(player2Arrow.transform.position.x);
-                            player2ThrowSpeed.z = Math.Abs(player2ThrowSpeed.z) + Math.Abs(player2Arrow.transform.position.x);
-                            player2ThrowSpeed.x = 25; // players are out to the side 
+                            //player2ThrowSpeed.y = Math.Abs(player2ThrowSpeed.y) + Math.Abs(player2Arrow.transform.position.x);
+                            //player2ThrowSpeed.z = Math.Abs(player2ThrowSpeed.z) + Math.Abs(player2Arrow.transform.position.x);
+
+                            player1ThrowSpeed.y = player1ThrowSpeed.y + (hand.Position.Y - shoulder.Position.Y) * 2.5F;
+                            player1ThrowSpeed.z = player1ThrowSpeed.z + (hand.Position.Y - shoulder.Position.Y) * 1.3F;
+
+                            player2ThrowSpeed.x = 15; // players are out to the side 
 
                             player2BallClone.GetComponent<Rigidbody>().AddForce(player2ThrowSpeed, ForceMode.Impulse);
                             //GetComponent<AudioSource>().Play();
