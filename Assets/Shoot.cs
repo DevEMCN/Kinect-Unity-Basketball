@@ -13,6 +13,7 @@ public class Shoot : MonoBehaviour
     private bool player1Thrown = false;
     private GameObject player1BallClone;
     public GameObject player1AvailableShotsGO;
+    private ulong player1TrackingID;
     private int player1AvailableShots = 5;
     public GameObject player1Meter;
     public GameObject player1Arrow;
@@ -26,6 +27,7 @@ public class Shoot : MonoBehaviour
     private bool player2Thrown = false;
     private GameObject player2BallClone;
     //public GameObject player2AvailableShotsGO;
+    private ulong player2TrackingID;
     private int player2AvailableShots = 5;
     public GameObject player2Meter;
     public GameObject player2Arrow;
@@ -101,12 +103,28 @@ public class Shoot : MonoBehaviour
             if (frame != null)
             {
                 frame.GetAndRefreshBodyData(_bodies);
+                int bodyCount = 0;
 
                 foreach (var body in _bodies.Where(b => b.IsTracked))
                 {
+                    bodyCount++;
+                    if (bodyCount == 1)
+                    {
+                        player1TrackingID = body.TrackingId;
+                    }
+                    else
+                    {
+                        player2TrackingID = body.TrackingId;
+                        bodyCount = 0;
+                    }
+
+                }
+                
+                foreach (var body in _bodies.Where(b => b.IsTracked))
+                {
                     IsAvailable = true;
-                    
                    
+
 
                     /* get instances of the elbow and shoulders and head*/
                     /*  insert left elbow and shoulder here for 2 hand throw*/
@@ -156,7 +174,8 @@ public class Shoot : MonoBehaviour
 
                         /* Shoot ball on Tap */
 
-                        if (Input.GetButton("Fire1") && !player1Thrown && player1AvailableShots > 0)
+                        //if (Input.GetButton("Fire1") && !player1Thrown && player1AvailableShots > 0)
+                        if(body.TrackingId == player1TrackingID && body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
                         {
                             player1Thrown = true;
                             player1AvailableShots--;
@@ -170,7 +189,7 @@ public class Shoot : MonoBehaviour
                             player1BallClone.GetComponent<Rigidbody>().AddForce(player1ThrowSpeed, ForceMode.Impulse);
                             //GetComponent<AudioSource>().Play();
                         }
-                        if (Input.GetKeyDown(KeyCode.Space) /*&& !player1Thrown &&*/ /*player1AvailableShots > 0*/)
+                        if (body.TrackingId == player2TrackingID && body.HandLeftState == HandState.Open /*&& !player1Thrown &&*/ /*player1AvailableShots > 0*/)
                         {
                             player2Thrown = true;
                             player2AvailableShots--;
