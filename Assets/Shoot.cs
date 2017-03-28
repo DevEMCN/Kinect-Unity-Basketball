@@ -176,8 +176,8 @@ public class Shoot : MonoBehaviour
                         /* Shoot ball on Tap */
 
                         //if (Input.GetButton("Fire1") && !player1Thrown && player1AvailableShots > 0)
-                        //if(body.TrackingId == player1TrackingID && body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
-                        if (body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
+                        if(body.TrackingId == player1TrackingID && body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
+                        //if (body.TrackingId == player1TrackingID && body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
                         {
                             player1Thrown = true;
                             player1AvailableShots--;
@@ -197,8 +197,8 @@ public class Shoot : MonoBehaviour
                             player1BallClone.GetComponent<Rigidbody>().AddForce(player1ThrowSpeed, ForceMode.Impulse);
                             //GetComponent<AudioSource>().Play();
                         }
-                        //if (body.TrackingId == player2TrackingID && body.HandLeftState == HandState.Open && !player2Thrown && player2AvailableShots > 0)
-                        if(body.HandRightState == HandState.Open && !player2Thrown && player2AvailableShots > 0)
+                        if (body.TrackingId == player2TrackingID && body.HandLeftState == HandState.Open && !player2Thrown && player2AvailableShots > 0)
+                        //if(body.TrackingId == player2TrackingID && body.HandRightState == HandState.Open && !player2Thrown && player2AvailableShots > 0)
                         {
                             player2Thrown = true;
                             player2AvailableShots--;
