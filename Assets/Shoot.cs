@@ -12,7 +12,7 @@ public class Shoot : MonoBehaviour
     public Vector3 player1BallPos;
     private bool player1Thrown = false;
     private GameObject player1BallClone;
-    public GameObject player1AvailableShotsGO;
+    //public GameObject player1AvailableShotsGO;
     private ulong player1TrackingID;
     private int player1AvailableShots = 5;
     public GameObject player1Meter;
@@ -24,7 +24,7 @@ public class Shoot : MonoBehaviour
     public GameObject player2Ball;
     private Vector3 player2ThrowSpeed = new Vector3(0, 26, 40); //This value is a sure basket
     public Vector3 player2BallPos;
-    public GameObject player2AvailableShotsGO;
+    //public GameObject player2AvailableShotsGO;
     private bool player2Thrown = false;
     private GameObject player2BallClone;
     //public GameObject player2AvailableShotsGO;
@@ -36,6 +36,8 @@ public class Shoot : MonoBehaviour
     private bool player2Right = true;
 
     public GameObject gameOver;
+
+    public GameObject playerShootsText;
 
     private KinectSensor _sensor;
     private BodyFrameReader _bodyFrameReader;
@@ -179,9 +181,10 @@ public class Shoot : MonoBehaviour
                         if(body.TrackingId == player1TrackingID && body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
                         //if (body.TrackingId == player1TrackingID && body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
                         {
+                            playerShootsText.GetComponent<GUIText>().text = "Player1 Shoots";
                             player1Thrown = true;
                             player1AvailableShots--;
-                            player1AvailableShotsGO.GetComponent<GUIText>().text = player1AvailableShots.ToString();
+                            //player1AvailableShotsGO.GetComponent<GUIText>().text = player1AvailableShots.ToString();
 
                             player1BallClone = Instantiate(player1Ball, player1BallPos, transform.rotation) as GameObject;
                             //player1ThrowSpeed.y = player1ThrowSpeed.y + player1Arrow.transform.position.x;// * 0.7F;
@@ -200,6 +203,7 @@ public class Shoot : MonoBehaviour
                         if (body.TrackingId == player2TrackingID && body.HandLeftState == HandState.Open && !player2Thrown && player2AvailableShots > 0)
                         //if(body.TrackingId == player2TrackingID && body.HandRightState == HandState.Open && !player2Thrown && player2AvailableShots > 0)
                         {
+                            playerShootsText.GetComponent<GUIText>().text = "Player2 Shoots";
                             player2Thrown = true;
                             player2AvailableShots--;
                             //player2AvailableShotsGO.GetComponent<GUIText>().text = player2AvailableShots.ToString();
@@ -208,8 +212,8 @@ public class Shoot : MonoBehaviour
                             //player2ThrowSpeed.y = Math.Abs(player2ThrowSpeed.y) + Math.Abs(player2Arrow.transform.position.x);
                             //player2ThrowSpeed.z = Math.Abs(player2ThrowSpeed.z) + Math.Abs(player2Arrow.transform.position.x);
 
-                            player1ThrowSpeed.y = player1ThrowSpeed.y + (hand.Position.Y - shoulder.Position.Y) * 2.5F;
-                            player1ThrowSpeed.z = player1ThrowSpeed.z + (hand.Position.Y - shoulder.Position.Y) * 1.3F;
+                            player2ThrowSpeed.y = player2ThrowSpeed.y + (hand.Position.Y - shoulder.Position.Y) * 2.5F;
+                            player2ThrowSpeed.z = player2ThrowSpeed.z + (hand.Position.Y - shoulder.Position.Y) * 1.3F;
 
                             player2ThrowSpeed.x = 15; // players are out to the side 
 

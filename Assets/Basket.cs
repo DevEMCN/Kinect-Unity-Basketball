@@ -3,8 +3,10 @@ using System.Collections;
 
 public class Basket : MonoBehaviour
 {
-    public GameObject score;
+    public GameObject score1;
+    public GameObject score2;
     public AudioClip basket;
+    public GameObject shooter;
 
     void OnCollisionEnter()
     {
@@ -13,8 +15,16 @@ public class Basket : MonoBehaviour
 
     void OnTriggerEnter()
     {
-        int currentScore = int.Parse(score.GetComponent<GUIText>().text) + 1;
-        score.GetComponent<GUIText>().text = currentScore.ToString();
+        if (shooter.GetComponent<GUIText>().text.Equals("Player1 Shoots"))
+        {
+            int currentScore1 = int.Parse(score1.GetComponent<GUIText>().text) + 1;
+            score1.GetComponent<GUIText>().text = currentScore1.ToString();
+        }
+        else if(shooter.GetComponent<GUIText>().text.Equals("Player2 Shoots"))
+        {
+            int currentScore2 = int.Parse(score2.GetComponent<GUIText>().text) + 1;
+            score2.GetComponent<GUIText>().text = currentScore2.ToString();
+        }
         AudioSource.PlayClipAtPoint(basket, transform.position);
     }
 }
