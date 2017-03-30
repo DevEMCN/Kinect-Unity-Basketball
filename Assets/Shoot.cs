@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using Windows.Kinect;
 using System.Linq;
@@ -6,7 +6,7 @@ using System;
 
 public class Shoot : MonoBehaviour
 {
-    // player 1 objects 
+    // player 1 objects
     public GameObject player1Ball;
     private Vector3 player1ThrowSpeed = new Vector3(0, 26, 40); //This value is a sure basket
     public Vector3 player1BallPos;
@@ -122,21 +122,23 @@ public class Shoot : MonoBehaviour
                     }
 
                 }
-                
+
                 foreach (var body in _bodies.Where(b => b.IsTracked))
                 {
                     IsAvailable = true;
-                   
+
 
 
                     /* get instances of the elbow and shoulders and head*/
                     /*  insert left elbow and shoulder here for 2 hand throw*/
                     Windows.Kinect.Joint elbow = body.Joints[JointType.ElbowLeft];
                     Windows.Kinect.Joint shoulder = body.Joints[JointType.ShoulderLeft];
-             
+
                     Windows.Kinect.Joint hand = body.Joints[JointType.HandLeft];
                     // if the right elbow goes above the right shoulder the power meter becomes
-                    // available 
+                    // available
+                    if(body.TrackingId == player1TrackingID)
+                    {
                     if (elbow.Position.Y > shoulder.Position.Y) {
                         /* Move Meter Arrow */
                         /* Move Meter Arrow player 1*/
@@ -157,29 +159,10 @@ public class Shoot : MonoBehaviour
                             player1Right = true;
                         }
 
-                        /* move meter arrow player 2*/
-                        if (player2Arrow.transform.position.x < -14.3f && player2Right)
-                        {
-                            player2Arrow.transform.position += new Vector3(player2ArrowSpeed, 0, 0);
-                        }
-                        if (player2Arrow.transform.position.x >= -14.3f)
-                        {
-                            player2Right = false;
-                        }
-                        if (player2Right == false)
-                        {
-                            player2Arrow.transform.position -= new Vector3(player2ArrowSpeed, 0, 0);
-                        }
-                        if (player2Arrow.transform.position.x <= -23.7f)
-                        {
-                            player2Right = true;
-                        }
-
                         /* Shoot ball on Tap */
 
                         //if (Input.GetButton("Fire1") && !player1Thrown && player1AvailableShots > 0)
-                        if(body.TrackingId == player1TrackingID && body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
-                        //if (body.TrackingId == player1TrackingID && body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
+                        if(body.HandLeftState == HandState.Open && !player1Thrown && player1AvailableShots > 0)
                         {
                             playerShootsText.GetComponent<GUIText>().text = "Player1 Shoots";
                             player1Thrown = true;
@@ -193,55 +176,59 @@ public class Shoot : MonoBehaviour
                             player1ThrowSpeed.z = player1ThrowSpeed.z + (hand.Position.Y - shoulder.Position.Y) * 2.0F;
 
                             //player1ThrowSpeed.z = player1ThrowSpeed.z + player1Arrow.transform.position.x * 0.8F;
-                            player1ThrowSpeed.x = -10; // players are out to the side 
-
-                            
+                            player1ThrowSpeed.x = -10; // players are out to the side
 
                             player1BallClone.GetComponent<Rigidbody>().AddForce(player1ThrowSpeed, ForceMode.Impulse);
                             //GetComponent<AudioSource>().Play();
                         }
-                        if (body.TrackingId == player2TrackingID && body.HandLeftState == HandState.Open && !player2Thrown && player2AvailableShots > 0)
-                        //if(body.TrackingId == player2TrackingID && body.HandRightState == HandState.Open && !player2Thrown && player2AvailableShots > 0)
+                      }
+                    }
+
+
+                    if(body.TrackingId == player2TrackingID)
+                    {
+                    if (elbow.Position.Y > shoulder.Position.Y) {
+                      /* move meter arrow player 2*/
+                      if (player2Arrow.transform.position.x < -14.3f && player2Right)
+                      {
+                          player2Arrow.transform.position += new Vector3(player2ArrowSpeed, 0, 0);
+                      }
+                      if (player2Arrow.transform.position.x >= -14.3f)
+                      {
+                          player2Right = false;
+                      }
+                      if (player2Right == false)
+                      {
+                          player2Arrow.transform.position -= new Vector3(player2ArrowSpeed, 0, 0);
+                      }
+                      if (player2Arrow.transform.position.x <= -23.7f)
+                      {
+                          player2Right = true;
+                      }
+
+                        /* Shoot ball on Tap */
+
+                        //if (Input.GetButton("Fire1") && !player1Thrown && player1AvailableShots > 0)
+                        if(body.HandLeftState == HandState.Open && !player2Thrown && player2AvailableShots > 0)
                         {
                             playerShootsText.GetComponent<GUIText>().text = "Player2 Shoots";
                             player2Thrown = true;
                             player2AvailableShots--;
-                            //player2AvailableShotsGO.GetComponent<GUIText>().text = player2AvailableShots.ToString();
+                            //player1AvailableShotsGO.GetComponent<GUIText>().text = player1AvailableShots.ToString();
 
                             player2BallClone = Instantiate(player2Ball, player2BallPos, transform.rotation) as GameObject;
-                            //player2ThrowSpeed.y = Math.Abs(player2ThrowSpeed.y) + Math.Abs(player2Arrow.transform.position.x);
-                            //player2ThrowSpeed.z = Math.Abs(player2ThrowSpeed.z) + Math.Abs(player2Arrow.transform.position.x);
+                            //player1ThrowSpeed.y = player1ThrowSpeed.y + player1Arrow.transform.position.x;// * 0.7F;
 
-                            player2ThrowSpeed.y = player2ThrowSpeed.y + (hand.Position.Y - shoulder.Position.Y) * 2.5F;
+                            player2ThrowSpeed.y =  player2ThrowSpeed.y + (hand.Position.Y - shoulder.Position.Y) * 2.5F;
                             player2ThrowSpeed.z = player2ThrowSpeed.z + (hand.Position.Y - shoulder.Position.Y) * 1.3F;
 
-                            player2ThrowSpeed.x = 15; // players are out to the side 
+                            //player1ThrowSpeed.z = player1ThrowSpeed.z + player1Arrow.transform.position.x * 0.8F;
+                            player2ThrowSpeed.x = 15; // players are out to the side
 
                             player2BallClone.GetComponent<Rigidbody>().AddForce(player2ThrowSpeed, ForceMode.Impulse);
                             //GetComponent<AudioSource>().Play();
                         }
-                        //if (body.HandLeftState == HandState.Open && (counter_cooldown <= 0) && availableShots > 0)
-                        //{
-                        //    counter_cooldown = 100; // delay next available shot
-                        //    thrown = true;
-                        //    availableShots--;
-                        //    availableShotsGO.GetComponent<GUIText>().text = availableShots.ToString();
-
-                        //    ballClone = Instantiate(ball, ballPos, transform.rotation) as GameObject;
-                        //    //throwSpeed.y = throwSpeed.y + arrow.transform.position.x;
-                        //    //throwSpeed.z = throwSpeed.z + arrow.transform.position.x;
-                        //    // justification for following code.
-                        //    // because the ball can only be thrown when your elbow is above your shoulder
-                        //    // the only way to move your hand closer to your shoulder would be to bend your elbow back
-                        //    // in a throwing motion
-                        //    // hence the throw power is determined by the distance between the height of the hand and
-                        //    // height of the shoulder
-                        //    throwSpeed.y = throwSpeed.y + (hand.Position.Y - shoulder.Position.Y) * 2;
-                        //    throwSpeed.z = throwSpeed.z + (hand.Position.Y - shoulder.Position.Y) * 2;
-                        //    ballClone.GetComponent<Rigidbody>().AddForce(throwSpeed, ForceMode.Impulse);
-
-
-                        //}
+                      }
                     }
 
 
@@ -286,16 +273,16 @@ public class Shoot : MonoBehaviour
             }
         }
 
-        
+
     }
-    
+
 
     void restart()
     {
         Application.LoadLevel(Application.loadedLevel);
     }
 
-    
+
 
     void OnApplicationQuit()
     {
